@@ -1,0 +1,121 @@
+---- Minecraft Crash Report ----
+// But it works on my machine.
+
+Time: 11/04/15 4:52 PM
+Description: Exception while updating neighbours
+
+java.lang.NullPointerException: Exception while updating neighbours
+	at cethric.stuff.block.BlockMovingController.onNeighborBlockChange(BlockMovingController.java:68)
+	at net.minecraft.world.World.notifyBlockOfStateChange(World.java:580)
+	at net.minecraft.world.World.notifyNeighborsOfStateChange(World.java:530)
+	at net.minecraft.block.BlockRedstoneWire.updateSurroundingRedstone(BlockRedstoneWire.java:116)
+	at net.minecraft.block.BlockRedstoneWire.onNeighborBlockChange(BlockRedstoneWire.java:332)
+	at net.minecraft.world.World.notifyBlockOfStateChange(World.java:580)
+	at net.minecraft.world.World.notifyNeighborsOfStateChange(World.java:530)
+	at net.minecraft.block.BlockRedstoneWire.updateSurroundingRedstone(BlockRedstoneWire.java:116)
+	at net.minecraft.block.BlockRedstoneWire.onNeighborBlockChange(BlockRedstoneWire.java:332)
+	at net.minecraft.world.World.notifyBlockOfStateChange(World.java:580)
+	at net.minecraft.block.BlockRedstoneDiode.notifyNeighbors(BlockRedstoneDiode.java:215)
+	at net.minecraft.block.BlockRedstoneRepeater.breakBlock(BlockRedstoneRepeater.java:128)
+	at net.minecraft.world.chunk.Chunk.setBlockState(Chunk.java:721)
+	at net.minecraft.world.World.setBlockState(World.java:385)
+	at net.minecraft.block.BlockRedstoneDiode.updateTick(BlockRedstoneDiode.java:62)
+	at net.minecraft.world.WorldServer.tickUpdates(WorldServer.java:660)
+	at net.minecraft.world.WorldServer.tick(WorldServer.java:226)
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:763)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:669)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:171)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:540)
+	at java.lang.Thread.run(Thread.java:745)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at cethric.stuff.block.BlockMovingController.onNeighborBlockChange(BlockMovingController.java:68)
+
+-- Block being updated --
+Details:
+	Source block type: ID #55 (tile.redstoneDust // net.minecraft.block.BlockRedstoneWire)
+	Block: stuff:blockMoving
+	Block location: World: (688,81,4), Chunk: (at 0,5,4 in 43,0; contains blocks 688,0,0 to 703,255,15), Region: (1,0; contains chunks 32,0 to 63,31, blocks 512,0,0 to 1023,255,511)
+Stacktrace:
+	at net.minecraft.world.World.notifyBlockOfStateChange(World.java:580)
+	at net.minecraft.world.World.notifyNeighborsOfStateChange(World.java:530)
+	at net.minecraft.block.BlockRedstoneWire.updateSurroundingRedstone(BlockRedstoneWire.java:116)
+	at net.minecraft.block.BlockRedstoneWire.onNeighborBlockChange(BlockRedstoneWire.java:332)
+
+-- Block being updated --
+Details:
+	Source block type: ID #55 (tile.redstoneDust // net.minecraft.block.BlockRedstoneWire)
+	Block: minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+	Block location: World: (688,81,5), Chunk: (at 0,5,5 in 43,0; contains blocks 688,0,0 to 703,255,15), Region: (1,0; contains chunks 32,0 to 63,31, blocks 512,0,0 to 1023,255,511)
+Stacktrace:
+	at net.minecraft.world.World.notifyBlockOfStateChange(World.java:580)
+	at net.minecraft.world.World.notifyNeighborsOfStateChange(World.java:530)
+	at net.minecraft.block.BlockRedstoneWire.updateSurroundingRedstone(BlockRedstoneWire.java:116)
+	at net.minecraft.block.BlockRedstoneWire.onNeighborBlockChange(BlockRedstoneWire.java:332)
+
+-- Block being updated --
+Details:
+	Source block type: ID #93 (tile.diode // net.minecraft.block.BlockRedstoneRepeater)
+	Block: minecraft:redstone_wire[east=none,north=none,power=0,south=none,west=none]
+	Block location: World: (688,81,6), Chunk: (at 0,5,6 in 43,0; contains blocks 688,0,0 to 703,255,15), Region: (1,0; contains chunks 32,0 to 63,31, blocks 512,0,0 to 1023,255,511)
+Stacktrace:
+	at net.minecraft.world.World.notifyBlockOfStateChange(World.java:580)
+	at net.minecraft.block.BlockRedstoneDiode.notifyNeighbors(BlockRedstoneDiode.java:215)
+	at net.minecraft.block.BlockRedstoneRepeater.breakBlock(BlockRedstoneRepeater.java:128)
+	at net.minecraft.world.chunk.Chunk.setBlockState(Chunk.java:721)
+	at net.minecraft.world.World.setBlockState(World.java:385)
+	at net.minecraft.block.BlockRedstoneDiode.updateTick(BlockRedstoneDiode.java:62)
+
+-- Block being ticked --
+Details:
+	Block: minecraft:unpowered_repeater[delay=1,facing=south,locked=false]
+	Block location: World: (688,81,7), Chunk: (at 0,5,7 in 43,0; contains blocks 688,0,0 to 703,255,15), Region: (1,0; contains chunks 32,0 to 63,31, blocks 512,0,0 to 1023,255,511)
+Stacktrace:
+	at net.minecraft.world.WorldServer.tickUpdates(WorldServer.java:660)
+	at net.minecraft.world.WorldServer.tick(WorldServer.java:226)
+
+-- Affected level --
+Details:
+	Level name: New World
+	All players: 0 total; []
+	Chunk stats: ServerChunkCache: 625 Drop: 0
+	Level seed: -3623414876132924466
+	Level generator: ID 01 - flat, ver 0. Features enabled: false
+	Level generator options: 
+	Level spawn location: 600.00,4.00,147.00 - World: (600,4,147), Chunk: (at 8,0,3 in 37,9; contains blocks 592,0,144 to 607,255,159), Region: (1,0; contains chunks 32,0 to 63,31, blocks 512,0,0 to 1023,255,511)
+	Level time: 119802 game time, 10206 day time
+	Level dimension: 0
+	Level storage version: 0x04ABD - Anvil
+	Level weather: Rain time: 20317 (now: false), thunder time: 15824 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: true
+Stacktrace:
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:763)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:669)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:171)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:540)
+	at java.lang.Thread.run(Thread.java:745)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8
+	Operating System: Mac OS X (x86_64) version 10.10.2
+	Java Version: 1.8.0_40, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 694732704 bytes (662 MB) / 1038876672 bytes (990 MB) up to 1038876672 bytes (990 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP v9.10 FML v8.0.72.1357 Minecraft Forge 11.14.1.1357 4 mods loaded, 4 mods active
+	mcp{9.05} [Minecraft Coder Pack] (minecraft.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	FML{8.0.72.1357} [Forge Mod Loader] (forgeSrc-1.8-11.14.1.1357.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	Forge{11.14.1.1357} [Minecraft Forge] (forgeSrc-1.8-11.14.1.1357.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	stuff{0.0.0} [stuff] (main) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	Loaded coremods (and transformers): 
+	Profiler Position: N/A (disabled)
+	Player Count: 0 / 8; []
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'fml,forge'

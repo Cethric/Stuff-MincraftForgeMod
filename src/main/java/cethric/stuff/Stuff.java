@@ -1,6 +1,7 @@
 package cethric.stuff;
 
 import cethric.stuff.block.BlockMovingController;
+import cethric.stuff.block.BlockTicker;
 import cethric.stuff.common.CommonProxy;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -17,12 +18,15 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
+
 @Mod(modid=Stuff.MODID, version=Stuff.MODVERSION)
 public class Stuff {
     private static final Logger LOGGER = LogManager.getLogger(Stuff.class);
     public static final String MODID = "stuff";
     public static final String MODVERSION = "0.0.0";
     public static final BlockMovingController blockMoving = new BlockMovingController(Material.clay);
+    public static final BlockTicker blockTicker = new BlockTicker(Material.circuits);
 
     public static final CreativeTabs blocksTab = new CreativeTabs(CreativeTabs.getNextID(), "stuff") {
         @Override
@@ -47,6 +51,11 @@ public class Stuff {
 
         blockMoving.setHardness(0.5f).setStepSound(BlockMovingController.soundTypeGravel).setUnlocalizedName("blockMoving").setCreativeTab(blocksTab);
         GameRegistry.registerBlock(blockMoving, "blockMoving");
+
+        blockTicker.setHardness(0.5f).setStepSound(BlockTicker.soundTypeGravel).setUnlocalizedName("blockTicker").setCreativeTab(blocksTab);
+        GameRegistry.registerBlock(blockTicker, "blockTicker");
+
+        BlockMovingController.allowedBlocks = Arrays.asList(Stuff.getConfig().get("allowed_blocks", "Blocks", new String[]{}).getStringList());
 
         System.out.println(Minecraft.getMinecraft().getResourceManager().getResourceDomains());
         System.out.println(Minecraft.getMinecraft().getResourcePackRepository().getRepositoryEntries());

@@ -36,6 +36,8 @@ public class BlockMovingController extends Block {
     private BlockPos moveDir = new BlockPos(0, 0, 0);
     private EntityPlayer owner = null;
 
+    public static List<String> allowedBlocks;
+
 
     public BlockMovingController(Material materialIn) {
         super(materialIn);
@@ -118,15 +120,32 @@ public class BlockMovingController extends Block {
             for (int x = pos.getX()-MAX_SEARCH_X/2; x < pos.getX()+MAX_SEARCH_X/2; x++) {
                 for (int z = pos.getZ()-MAX_SEARCH_Z/2; z < pos.getZ()+MAX_SEARCH_Z/2; z++) {
                     BlockPos pos1 = new BlockPos(x, y, z);
-                    IBlockState iblockstate1 = world.getBlockState(pos1);
-                    if (Arrays.asList(Stuff.getConfig().get("allowed_blocks", "Blocks", new String[]{}).getStringList()).contains(iblockstate1.getBlock().getClass().getCanonicalName())) {
-                        if (!surroundedByAir(pos1, world) && isAttachedToController(pos1, world)) {
+                    IBlockState iBlockState = world.getBlockState(pos1);
+                    String name = iBlockState.getBlock().getClass().getCanonicalName();
+                    if (allowedBlocks.contains(name)) {
+                        if (!surroundedByAir(pos1, world)) {
                             blockCache.add(pos1);
                         }
                     }
                 }
             }
         }
+        List<BlockPos> removeThese = new ArrayList<BlockPos>();
+        for (BlockPos pos1 : blockCache) {
+            boolean attached;
+            try {
+                attached = isAttachedToController(pos1, pos1, world);
+//                                System.out.println(attached);
+            } catch (StackOverflowError e) {
+//                                LOGGER.error("So yeah this is an error: " + e.getLocalizedMessage(), e);
+                System.out.println("StackOverflowError");
+                attached = false;
+            }
+            if (!attached) {
+                removeThese.add(pos1);
+            }
+        }
+        blockCache.remove(removeThese);
     }
 
     public void getNeighborsDown(BlockPos pos, World world) {
@@ -136,7 +155,7 @@ public class BlockMovingController extends Block {
                     BlockPos pos1 = new BlockPos(x, y, z);
                     IBlockState iblockstate1 = world.getBlockState(pos1);
                     if (Arrays.asList(Stuff.getConfig().get("allowed_blocks", "Blocks", new String[]{}).getStringList()).contains(iblockstate1.getBlock().getClass().getCanonicalName())) {
-                        if (!surroundedByAir(pos1, world) && isAttachedToController(pos1, world)) {
+                        if (!surroundedByAir(pos1, world) && isAttachedToController(pos1, pos1, world)) {
                             blockCache.add(pos1);
                         }
                     }
@@ -152,7 +171,7 @@ public class BlockMovingController extends Block {
                     BlockPos pos1 = new BlockPos(x, y, z);
                     IBlockState iblockstate1 = world.getBlockState(pos1);
                     if (Arrays.asList(Stuff.getConfig().get("allowed_blocks", "Blocks", new String[]{}).getStringList()).contains(iblockstate1.getBlock().getClass().getCanonicalName())) {
-                        if (!surroundedByAir(pos1, world) && isAttachedToController(pos1, world)) {
+                        if (!surroundedByAir(pos1, world) && isAttachedToController(pos1, pos1, world)) {
                             blockCache.add(pos1);
                         }
                     }
@@ -169,7 +188,7 @@ public class BlockMovingController extends Block {
                     BlockPos pos1 = new BlockPos(x, y, z);
                     IBlockState iblockstate1 = world.getBlockState(pos1);
                     if (Arrays.asList(Stuff.getConfig().get("allowed_blocks", "Blocks", new String[]{}).getStringList()).contains(iblockstate1.getBlock().getClass().getCanonicalName())) {
-                        if (!surroundedByAir(pos1, world) && isAttachedToController(pos1, world)) {
+                        if (!surroundedByAir(pos1, world) && isAttachedToController(pos1, pos1, world)) {
                             blockCache.add(pos1);
                         }
                     }
@@ -185,7 +204,7 @@ public class BlockMovingController extends Block {
                     BlockPos pos1 = new BlockPos(x, y, z);
                     IBlockState iblockstate1 = world.getBlockState(pos1);
                     if (Arrays.asList(Stuff.getConfig().get("allowed_blocks", "Blocks", new String[]{}).getStringList()).contains(iblockstate1.getBlock().getClass().getCanonicalName())) {
-                        if (!surroundedByAir(pos1, world) && isAttachedToController(pos1, world)) {
+                        if (!surroundedByAir(pos1, world) && isAttachedToController(pos1, pos1, world)) {
                             blockCache.add(pos1);
                         }
                     }
@@ -202,7 +221,7 @@ public class BlockMovingController extends Block {
                     BlockPos pos1 = new BlockPos(x, y, z);
                     IBlockState iblockstate1 = world.getBlockState(pos1);
                     if (Arrays.asList(Stuff.getConfig().get("allowed_blocks", "Blocks", new String[]{}).getStringList()).contains(iblockstate1.getBlock().getClass().getCanonicalName())) {
-                        if (!surroundedByAir(pos1, world) && isAttachedToController(pos1, world)) {
+                        if (!surroundedByAir(pos1, world) && isAttachedToController(pos1, pos1, world)) {
                             blockCache.add(pos1);
                         }
                     }
@@ -260,75 +279,91 @@ public class BlockMovingController extends Block {
         return up && down && north && south && east && west;
     }
 
-    public boolean isAttachedToController(BlockPos pos, World world) {
+    public boolean isAttachedToController(BlockPos origPos, BlockPos pos, World world) {
+        if (blockCache.contains(pos)) {
+            return true;
+        }
         IBlockState state;
-        boolean up;
-        state = world.getBlockState(pos.up());
-        if (state.getBlock().getClass().getCanonicalName().equals("cethric.stuff.block.BlockMovingController")) {
-            up = true;
-        } else {
-            if (Arrays.asList(Stuff.getConfig().get("allowed_blocks", "Blocks", new String[]{}).getStringList()).contains(state.getBlock().getClass().getCanonicalName())) {
-                up = isAttachedToController(pos.up(), world);
-            } else {
-                up = false;
+        String name;
+        if (! pos.up().equals(origPos)) {
+            state = world.getBlockState(pos.up());
+            name = state.getBlock().getClass().getCanonicalName();
+            if (!name.equals("net.minecraft.block.BlockAir")) {
+                if (name.equals("cethric.stuff.block.BlockMovingController")) {
+                    return true;
+                } else {
+                    if (allowedBlocks.contains(name)) {
+                        return (isAttachedToController(pos, pos.up(), world));
+                    }
+                }
             }
         }
-        boolean down;
-        state = world.getBlockState(pos.down());
-        if (state.getBlock().getClass().getCanonicalName().equals("cethric.stuff.block.BlockMovingController")) {
-            down = true;
-        } else {
-            if (! state.getBlock().getClass().getCanonicalName().equals("net.minecraft.block.BlockAir")) {
-                down = isAttachedToController(pos.down(), world);
-            } else {
-                down = false;
+        if (! pos.down().equals(origPos)) {
+            state = world.getBlockState(pos.down());
+            name = state.getBlock().getClass().getCanonicalName();
+            if (!name.equals("net.minecraft.block.BlockAir")) {
+                if (name.equals("cethric.stuff.block.BlockMovingController")) {
+                    return true;
+                } else {
+                    if (allowedBlocks.contains(name)) {
+                        return (isAttachedToController(pos, pos.down(), world));
+                    }
+                }
             }
         }
-        boolean north;
-        state = world.getBlockState(pos.north());
-        if (state.getBlock().getClass().getCanonicalName().equals("cethric.stuff.block.BlockMovingController")) {
-            north = true;
-        } else {
-            if (! state.getBlock().getClass().getCanonicalName().equals("net.minecraft.block.BlockAir")) {
-                north = isAttachedToController(pos.north(), world);
-            } else {
-                north = false;
+        if (! pos.north().equals(origPos)) {
+            state = world.getBlockState(pos.north());
+            name = state.getBlock().getClass().getCanonicalName();
+            if (!name.equals("net.minecraft.block.BlockAir")) {
+                if (name.equals("cethric.stuff.block.BlockMovingController")) {
+                    return true;
+                } else {
+                    if (allowedBlocks.contains(name)) {
+                        return (isAttachedToController(pos, pos.north(), world));
+                    }
+                }
             }
         }
-        boolean south;
-        state = world.getBlockState(pos.south());
-        if (state.getBlock().getClass().getCanonicalName().equals("cethric.stuff.block.BlockMovingController")) {
-            south = true;
-        } else {
-            if (! state.getBlock().getClass().getCanonicalName().equals("net.minecraft.block.BlockAir")) {
-                south = isAttachedToController(pos.south(), world);
-            } else {
-                south = false;
+        if (! pos.south().equals(origPos)) {
+            state = world.getBlockState(pos.south());
+            name = state.getBlock().getClass().getCanonicalName();
+            if (!name.equals("net.minecraft.block.BlockAir")) {
+                if (name.equals("cethric.stuff.block.BlockMovingController")) {
+                    return true;
+                } else {
+                    if (allowedBlocks.contains(name)) {
+                        return (isAttachedToController(pos, pos.south(), world));
+                    }
+                }
             }
         }
-        boolean east;
-        state = world.getBlockState(pos.east());
-        if (state.getBlock().getClass().getCanonicalName().equals("cethric.stuff.block.BlockMovingController")) {
-            east = true;
-        } else {
-            if (! state.getBlock().getClass().getCanonicalName().equals("net.minecraft.block.BlockAir")) {
-                east = isAttachedToController(pos.up(), world);
-            } else {
-                east = false;
+        if (! pos.east().equals(origPos)) {
+            state = world.getBlockState(pos.east());
+            name = state.getBlock().getClass().getCanonicalName();
+            if (!name.equals("net.minecraft.block.BlockAir")) {
+                if (name.equals("cethric.stuff.block.BlockMovingController")) {
+                    return true;
+                } else {
+                    if (allowedBlocks.contains(name)) {
+                        return (isAttachedToController(pos, pos.east(), world));
+                    }
+                }
             }
         }
-        boolean west;
-        state = world.getBlockState(pos.west());
-        if (state.getBlock().getClass().getCanonicalName().equals("cethric.stuff.block.BlockMovingController")) {
-            west = true;
-        } else {
-            if (! state.getBlock().getClass().getCanonicalName().equals("net.minecraft.block.BlockAir")) {
-                west = isAttachedToController(pos.west(), world);
-            } else {
-                west = false;
+        if (! pos.west().equals(origPos)) {
+            state = world.getBlockState(pos.west());
+            name = state.getBlock().getClass().getCanonicalName();
+            if (!name.equals("net.minecraft.block.BlockAir")) {
+                if (name.equals("cethric.stuff.block.BlockMovingController")) {
+                    return true;
+                } else {
+                    if (allowedBlocks.contains(name)) {
+                        return (isAttachedToController(pos, pos.west(), world));
+                    }
+                }
             }
         }
-        return up || down || north || south || east || west;
+        return false;
     }
 
     public BlockPos getBlockUnderEntity(World world, Entity entity) {

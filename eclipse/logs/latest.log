@@ -1,40 +1,38 @@
-[15:19:56] [Client thread/INFO]: Setting user: Player745
-[15:19:59] [Client thread/INFO]: LWJGL Version: 2.9.2
-[15:20:07] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:stuff
-[15:20:08] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[15:20:08] [Thread-7/INFO]: Initializing LWJGL OpenAL
-[15:20:08] [Thread-7/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[15:20:08] [Thread-7/INFO]: OpenAL initialized.
-[15:20:09] [Sound Library Loader/INFO]: Sound engine started
-[15:20:11] [Client thread/INFO]: Created: 512x512 textures-atlas
-[15:20:12] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:stuff
-[15:20:12] [Client thread/INFO]: SoundSystem shutting down...
-[15:20:12] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
-[15:20:12] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[15:20:12] [Thread-9/INFO]: Initializing LWJGL OpenAL
-[15:20:12] [Thread-9/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[15:20:12] [Thread-9/INFO]: OpenAL initialized.
-[15:20:13] [Sound Library Loader/INFO]: Sound engine started
-[15:20:14] [Client thread/INFO]: Created: 512x512 textures-atlas
-[15:20:19] [Server thread/INFO]: Starting integrated minecraft server version 1.8
-[15:20:19] [Server thread/INFO]: Generating keypair
-[15:20:20] [Server thread/INFO]: Preparing start region for level 0
-[15:20:21] [Server thread/INFO]: Preparing spawn area: 33%
-[15:20:23] [Server thread/INFO]: Changing view distance to 12, from 10
-[15:20:23] [Server thread/INFO]: Player745[local:E:5b061611] logged in with entity id 251 at (-249.00662053958632, 72.99059121965158, 219.93931188664072)
-[15:20:23] [Server thread/INFO]: Player745 joined the game
-[15:20:28] [Chunk Batcher 0/WARN]: Needed to grow BufferBuilder buffer: Old size 524288 bytes, new size 2621440 bytes.
-[15:20:31] [Chunk Batcher 0/WARN]: Needed to grow BufferBuilder buffer: Old size 524288 bytes, new size 2621440 bytes.
-[15:20:52] [Server thread/INFO]: [CHAT] Set The Controller Blocks first. (Right Click BlockMovingController)
-[15:20:52] [Server thread/INFO]: [CHAT] Set The Controller Blocks first. (Right Click BlockMovingController)
-[15:20:55] [Client thread/INFO]: Stopping!
-[15:20:55] [Client thread/INFO]: SoundSystem shutting down...
-[15:20:55] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
-[15:20:55] [Server thread/INFO]: Stopping server
-[15:20:55] [Server thread/INFO]: Saving players
-[15:20:55] [Server thread/INFO]: Saving worlds
-[15:20:55] [Client Shutdown Thread/INFO]: Stopping server
-[15:20:55] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
-[15:20:55] [Client Shutdown Thread/INFO]: Saving players
-[15:20:55] [Client Shutdown Thread/INFO]: Saving worlds
-[15:20:55] [Client Shutdown Thread/INFO]: Saving chunks for level 'New World'/Overworld
+[18:34:17] [Client thread/INFO]: Setting user: Player221
+[18:34:20] [Client thread/INFO]: LWJGL Version: 2.9.2
+[18:34:27] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:stuff
+[18:34:28] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[18:34:28] [Thread-7/INFO]: Initializing LWJGL OpenAL
+[18:34:28] [Thread-7/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[18:34:28] [Thread-7/INFO]: OpenAL initialized.
+[18:34:28] [Sound Library Loader/INFO]: Sound engine started
+[18:34:31] [Client thread/INFO]: Created: 512x512 textures-atlas
+[18:34:32] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:stuff
+[18:34:32] [Client thread/INFO]: SoundSystem shutting down...
+[18:34:32] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[18:34:32] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[18:34:32] [Thread-9/INFO]: Initializing LWJGL OpenAL
+[18:34:32] [Thread-9/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[18:34:32] [Thread-9/INFO]: OpenAL initialized.
+[18:34:33] [Sound Library Loader/INFO]: Sound engine started
+[18:34:34] [Client thread/INFO]: Created: 512x512 textures-atlas
+[18:36:20] [Server thread/INFO]: Starting integrated minecraft server version 1.8
+[18:36:20] [Server thread/INFO]: Generating keypair
+[18:36:21] [Server thread/INFO]: Preparing start region for level 0
+[18:36:22] [Server thread/INFO]: Preparing spawn area: 53%
+[18:36:22] [Server thread/INFO]: Changing view distance to 12, from 10
+[18:36:23] [Server thread/INFO]: Player221[local:E:6482ac2d] logged in with entity id 285 at (-248.0905158413906, 100.0, 228.6035917189887)
+[18:36:23] [Server thread/INFO]: Player221 joined the game
+[18:36:30] [Server thread/INFO]: Player221 has just earned the achievement [Taking Inventory]
+[18:36:30] [Client thread/INFO]: [CHAT] Player221 has just earned the achievement [Taking Inventory]
+[18:36:45] [Client thread/INFO]: Stopping!
+[18:36:46] [Client thread/INFO]: SoundSystem shutting down...
+[18:36:46] [Server thread/INFO]: Stopping server
+[18:36:46] [Server thread/INFO]: Saving players
+[18:36:46] [Server thread/INFO]: Saving worlds
+[18:36:46] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[18:36:46] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com
+[18:36:46] [Client Shutdown Thread/INFO]: Stopping server
+[18:36:46] [Client Shutdown Thread/INFO]: Saving players
+[18:36:46] [Client Shutdown Thread/INFO]: Saving worlds
+[18:36:46] [Client Shutdown Thread/INFO]: Saving chunks for level 'New World'/Overworld

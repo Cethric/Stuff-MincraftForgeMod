@@ -4,7 +4,11 @@ title: XGE
 permalink: /
 ---
 
-# Stuff-MincraftForgeMod
+# Stuff Mincraft Forge Mod
+[Get Tar.GZ](https://github.com/Cethric/Stuff-MincraftForgeMod/tarball/master)
+[Get Zip](https://github.com/Cethric/Stuff-MincraftForgeMod/zipball/master)
+[View on GitHub](https://github.com/Cethric/Stuff-MincraftForgeMod)
+
 This is a minecraft forge mod inspired by the RedPower locamotion module,
 which allowed large moving structures which could be interacted with.
 
